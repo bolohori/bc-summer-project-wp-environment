@@ -126,11 +126,11 @@ if ( isDevelopment ) {
     config.plugins.push(
 
         // Browsersync config
-        // Browse to https://localhost:3000 during development.
+        // Browse to http://localhost:3000 during development.
         new BrowserSyncPlugin(
             {
                 open: false, // Set this to true if you want the project to automatically open in a browser
-                proxy: 'https://localhost:8080', // Change this to your project url, e.g. localhost or projectname.test
+                proxy: 'http://localhost:8080', // Change this to your project url, e.g. localhost or projectname.test
                 port: 3000,
                 files: [
                     './htdocs/wp-content/themes/starter-theme/assets/dist/*.css',
