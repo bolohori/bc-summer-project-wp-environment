@@ -18,6 +18,8 @@ services:
     depends_on:
       - mysql
       - redis
+    env_file:
+      - .env
 
   shell:
     build:
@@ -30,6 +32,8 @@ services:
     depends_on:
       - mysql
       - redis
+    env_file:
+      - .env
 
   ci:
     build:
@@ -42,7 +46,9 @@ services:
     depends_on:
       - mysql
       - redis
-
+    env_file:
+      - .env
+ 
   ##
   # To use adminer, navigate to http://localhost:8081
   #
@@ -59,6 +65,8 @@ services:
       - 8081:80
     depends_on:
       - mysql
+    env_file:
+      - .env
 
   mysql:
     image: mysql:5.7
@@ -72,8 +80,12 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
+    env_file:
+      - .env
 
   redis:
     image: redis:3.2
+    env_file:
+      - .env
 #    ports:
 #      - '${REDIS_PORT:-6379}:6379'

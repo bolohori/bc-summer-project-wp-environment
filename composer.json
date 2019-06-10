@@ -34,6 +34,7 @@
     "koodimonni/composer-dropin-installer": "*",
     "koodimonni-language/fi": "*",
     "wpackagist-theme/twentyseventeen": "*",
+    "wpackagist-plugin/autodescription": "^3.0.0",
     "humanmade/s3-uploads": "*"
   },
   "require-dev": {

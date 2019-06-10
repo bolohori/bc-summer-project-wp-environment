@@ -31,12 +31,25 @@ cp .env.sample .env
 source .env
 ```
 
+Start a shell inside Docker. It might take a moment for the images to download
+and build. This is normal.
+
+```bash
+npm run shell
+```
+
+Now you can run `composer install` inside Docker
+
+```bash
+composer install && exit
+```
+
 You need to run this just once inside the project directory. Autoenv will take care of sourcing the .env file after this.
 
 Install Composer and NPM packages:
 
 ```bash
-make init
+npm install
 ```
 
 Outside the docker shell, you can now start the main process

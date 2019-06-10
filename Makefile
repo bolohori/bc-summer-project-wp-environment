@@ -2,12 +2,8 @@
 
 include .env
 
-init:
-	@docker exec -it web "composer install"
-	@npm install
-
 docker-start:
-	@docker-compose up web
+	@docker-compose up -d
 
 docker-stop:
 	@docker-compose down -v
