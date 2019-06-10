@@ -1,3 +1,6 @@
+// Import modules from Foundation.
+import Foundation from 'foundation-sites';
+
 // Use jQuery as $ in this module.
 const $ = jQuery;
 
