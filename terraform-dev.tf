@@ -6,6 +6,13 @@ resource "random_id" "dev" {
   byte_length = 16
 }
 
+# Default VPC
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC"
+  }
+}
+
 # RDS MariaDB instance
 resource "aws_db_instance" "dev" {
   engine = "mariadb"
@@ -79,7 +86,7 @@ resource "heroku_app" "dev" {
     "heroku/php",
     "heroku/nodejs"
   ]
-  config_vars {
+  config_vars = {
     WP_ENV = "dev"
     DATABASE_URL = "mysql://wordpress:${random_id.dev.hex}@${aws_db_instance.dev.address}/wordpress"
     S3_UPLOADS_BUCKET = "${aws_s3_bucket.dev.id}"
@@ -102,5 +109,7 @@ resource "heroku_addon" "papertrail-dev" {
 }
 
 # Outputs
-output "heroku git remote dev" { value = "${heroku_app.dev.git_url}" }
+output "wp_app_url" {
+  value = "https://${heroku_app.dev.name}.herokuapp.com"
+}
 

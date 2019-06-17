@@ -107,30 +107,75 @@ You should see an output of all the database tables created by WordPress.
 
 ## Deploying with Terraform
 
-Install [AWS-CLI](https://aws.amazon.com/cli/)
+### Installation
 
-Install [Heroku-CLI](https://devcenter.heroku.com/articles/heroku-cli)
+#### AWS-CLI
 
-To deploy using Terraform, make sure you've prepared Heroku and AWS credentials,
-and you've installed the [Terraform CLI binary](https://www.terraform.io/downloads.html)
-on your system.
+To install AWS-CLI do the following in Debian.
+
+```
+sudo apt-get install python python-pip
+sudo pip install awscli
+```
+
+Sign up for a 12 month free account in [AWS](https://portal.aws.amazon.com/billing/signup?refid=em_127222&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start).
+
+After installing the CLI [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) it.
+
+#### Heroku-CLI
+
+Install Heroku-CLI in Debian:
+
+```
+curl https://cli-assets.heroku.com/install.sh | sh
+```
+
+Sign up for an account in [Heroku](https://signup.heroku.com/).
+
+#### Terraform CLI
+
+To install Terraform CLI do the following in Debian.
+
+```
+cd /tmp
+wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+sudo apt-get install unzip
+sudo unzip /tmp/terraform_0.12.1_linux_amd64.zip
+sudo mv /tmp/terraform /usr/local/bin/terraform
+```
+
+Test the Terraform CLI is working by running:
+
+```
+terraform -v
+```
+You should see the version of Terraform.
+
+### Deployment
+
+Set the environment variables in the projects `.env` file.
 
 You can get your Heroku API key from the Heroku dashboard
 ```
-export HEROKU_API_KEY=
-export HEROKU_EMAIL=
+HEROKU_API_KEY=
+HEROKU_EMAIL=
 ```
 
 For AWS, create an IAM user with Administrator rights
 ```
-export AWS_ACCESS_KEY_ID=
-export AWS_SECRET_ACCESS_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
 ```
 
 The state of Terraform is managed in S3, so it should automatically sync any
 changes from the remote backend. For this you'll need to manually set up an S3
-bucket in the eu-west-1 region with the name `wp-terraform-backend`
+bucket in the eu-west-1 region with the name `wp-terraform-backend-{yourprojectname}`. The suffix must make the bucket name unique in S3. For example the name could be `wp-terraform-backend-my-awesome-project`. Set the bucket name in your .env file as the value of the `TF_VAR_aws_s3_bucket` variable.
 
+To create the bucket go to: https://s3.console.aws.amazon.com/s3/home?region=eu-west-1
+
+Set the project name in the .env file to the `TF_VAR_project_name` variable. Take a round-trip back to the project folder to apply environment variables with autoenv: `cd .. && cd name-of-your-project-directory`.
+
+After creating the bucket, run the following commands:
 ```
 terraform init
 terraform apply
