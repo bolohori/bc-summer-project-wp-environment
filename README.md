@@ -152,6 +152,7 @@ wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd6
 sudo apt-get install unzip
 sudo unzip /tmp/terraform_0.12.1_linux_amd64.zip
 sudo mv /tmp/terraform /usr/local/bin/terraform
+sudo chmod +x /usr/local/bin/terraform
 ```
 
 Test the Terraform CLI is working by running:
