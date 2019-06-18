@@ -169,7 +169,7 @@ AWS_SECRET_ACCESS_KEY=
 
 The state of Terraform is managed in S3, so it should automatically sync any
 changes from the remote backend. For this you'll need to manually set up an S3
-bucket in the eu-west-1 region with the name `wp-terraform-backend-{yourprojectname}`. The suffix must make the bucket name unique in S3. For example the name could be `wp-terraform-backend-my-awesome-project`. Set the bucket name in your .env file as the value of the `TF_VAR_aws_s3_bucket` variable.
+bucket in the eu-west-1 region with the name `wp-terraform-backend-{yourprojectname}`. The suffix must make the bucket name unique in S3. For example the name could be `wp-terraform-backend-my-awesome-project`. Set the bucket name in `terraform.tf` on line 13.
 
 To create the bucket go to: https://s3.console.aws.amazon.com/s3/home?region=eu-west-1
 

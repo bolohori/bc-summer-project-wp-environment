@@ -10,7 +10,7 @@ provider "heroku" {}
 # Store Terraform state in S3 (this must be prepared in advance)
 terraform {
   backend "s3" {
-    bucket = "${var.aws_s3_bucket}"
+    bucket = "wp-terraform-backend-{yourprojectname}"
     key = "wp/terraform.tfstate"
     region = "eu-west-1"
   }
