@@ -96,18 +96,6 @@ resource "heroku_app" "dev" {
   }
 }
 
-# Heroku Redis
-resource "heroku_addon" "redis-dev" {
-  app = "${heroku_app.dev.name}"
-  plan = "heroku-redis:hobby-dev"
-}
-
-# Heroku Papertrail
-resource "heroku_addon" "papertrail-dev" {
-  app = "${heroku_app.dev.name}"
-  plan = "papertrail:choklad"
-}
-
 # Outputs
 output "wp_app_url" {
   value = "https://${heroku_app.dev.name}.herokuapp.com"
