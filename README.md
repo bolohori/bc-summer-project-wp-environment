@@ -105,11 +105,9 @@ wp db check
 
 You should see an output of all the database tables created by WordPress.
 
-## Deploying with Terraform
+## Setup the deployment
 
-### Installation
-
-#### AWS-CLI
+### AWS-CLI
 
 To install AWS-CLI do the following in Debian.
 
@@ -122,7 +120,13 @@ Sign up for a 12 month free account in [AWS](https://portal.aws.amazon.com/billi
 
 After installing the CLI [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) it.
 
-#### Heroku-CLI
+For AWS, create an IAM user with Administrator rights and set the access credentials in the project's .env file.
+```
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+```
+
+### Heroku-CLI
 
 Install Heroku-CLI in Debian:
 
@@ -132,7 +136,13 @@ curl https://cli-assets.heroku.com/install.sh | sh
 
 Sign up for an account in [Heroku](https://signup.heroku.com/).
 
-#### Terraform CLI
+You can get your Heroku API key in the Heroku dashboard and set the credentials in the .env file.
+```
+HEROKU_API_KEY=
+HEROKU_EMAIL=
+```
+
+### Terraform CLI
 
 To install Terraform CLI do the following in Debian.
 
@@ -151,21 +161,26 @@ terraform -v
 ```
 You should see the version of Terraform.
 
-### Deployment
+### Heroku Git configurations
+
+Set Heroku-CLI to use SSH for Git:
+```bash
+heroku create --ssh-git
+git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
+```
+
+Add your SSH key for your Heroku account:
+```bash
+heroku keys:add
+```
+
+### Add collaborators
+
+Add your team members as collaborators for your app: https://devcenter.heroku.com/articles/collaborating#add-collaborators
+
+## Deploy
 
 Set the environment variables in the projects `.env` file.
-
-You can get your Heroku API key from the Heroku dashboard
-```
-HEROKU_API_KEY=
-HEROKU_EMAIL=
-```
-
-For AWS, create an IAM user with Administrator rights
-```
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-```
 
 The state of Terraform is managed in S3, so it should automatically sync any
 changes from the remote backend. For this you'll need to manually set up an S3
@@ -189,7 +204,7 @@ git remote add dev https://git.heroku.com/[my-project-name]-dev.git
 git push dev
 ```
 
-### WP-CLI in Heroku
+## WP-CLI in Heroku
 
 To run wp-cli in a Heroku instance, just run a temporary dyno.
 
