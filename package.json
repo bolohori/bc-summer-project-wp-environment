@@ -25,7 +25,7 @@
     "file-loader": "^1.1.9",
     "foundation-sites": "^6.5.1",
     "jquery": "^3.4.1",
-    "lint-staged": "^8.1.1",
+    "lint-staged": "^13.1.0",
     "lodash": "^4.17.10",
     "mini-css-extract-plugin": "^0.5.0",
     "motion-ui": "^2.0.3",
